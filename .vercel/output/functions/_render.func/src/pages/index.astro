@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Services from '../components/sections/Services.astro';
+import RecentProjects from '../components/sections/RecentProjects.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import TechMarquee from '../components/sections/TechMarquee.astro';
+import CTA from '../components/sections/CTA.astro';
+---
+
+<BaseLayout
+  title="Accueil"
+  description="Rework Agency - Agence de développement web et e-commerce. Sites modernes, performants et sur mesure pour votre entreprise."
+>
+  <Hero />
+  <TechMarquee />
+  <Services />
+  <RecentProjects />
+  <Testimonials />
+  <CTA />
+</BaseLayout>

@@ -1,0 +1,62 @@
+import { f as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_BxQs--Zw.mjs';
+import 'piccolore';
+import { $ as $$BaseLayout, a as $$Container } from '../chunks/BaseLayout_BKU1RhHw.mjs';
+export { renderers } from '../renderers.mjs';
+
+const $$PolitiqueConfidentialite = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`${renderComponent($$result, "BaseLayout", $$BaseLayout, { "title": "Politique de confidentialit\xE9", "description": "Politique de confidentialit\xE9 de Rework Agency - Comment nous collectons, utilisons et prot\xE9geons vos donn\xE9es personnelles." }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<section class="pt-32 pb-24"> ${renderComponent($$result2, "Container", $$Container, { "size": "md" }, { "default": ($$result3) => renderTemplate` <h1 class="text-4xl md:text-5xl font-bold mb-8">Politique de confidentialité</h1> <div class="prose prose-invert max-w-none space-y-8"> <p class="text-text-secondary text-lg">
+Dernière mise à jour : ${(/* @__PURE__ */ new Date()).toLocaleDateString("fr-FR", { year: "numeric", month: "long", day: "numeric" })} </p> <p class="text-text-secondary">
+Rework Agency s'engage à protéger la vie privée des utilisateurs de son site web.
+          Cette politique de confidentialité explique comment nous collectons, utilisons et
+          protégeons vos données personnelles.
+</p> <section class="space-y-4"> <h2 class="text-2xl font-semibold">1. Responsable du traitement</h2> <p class="text-text-secondary">
+Le responsable du traitement des données est Rework Agency, dont le siège social
+            est situé à [Adresse], [Code postal] [Ville], France.
+</p> <p class="text-text-secondary">
+Contact : contact@rework-agency.com
+</p> </section> <section class="space-y-4"> <h2 class="text-2xl font-semibold">2. Données collectées</h2> <p class="text-text-secondary">Nous collectons les données suivantes :</p> <ul class="list-disc list-inside text-text-secondary space-y-2"> <li><strong>Données d'identification :</strong> nom, prénom, adresse email</li> <li><strong>Données professionnelles :</strong> nom de l'entreprise, fonction</li> <li><strong>Données de navigation :</strong> adresse IP, cookies, pages visitées</li> <li><strong>Données de communication :</strong> messages envoyés via le formulaire de contact</li> </ul> </section> <section class="space-y-4"> <h2 class="text-2xl font-semibold">3. Finalités du traitement</h2> <p class="text-text-secondary">Vos données sont collectées pour les finalités suivantes :</p> <ul class="list-disc list-inside text-text-secondary space-y-2"> <li>Répondre à vos demandes de contact et de devis</li> <li>Améliorer notre site web et nos services</li> <li>Mesurer et analyser l'audience du site</li> <li>Vous envoyer des communications commerciales (avec votre consentement)</li> </ul> </section> <section class="space-y-4"> <h2 class="text-2xl font-semibold">4. Base légale</h2> <p class="text-text-secondary">Le traitement de vos données repose sur :</p> <ul class="list-disc list-inside text-text-secondary space-y-2"> <li><strong>Votre consentement</strong> pour les communications marketing</li> <li><strong>L'exécution d'un contrat</strong> pour la gestion de la relation client</li> <li><strong>L'intérêt légitime</strong> de Rework Agency pour l'amélioration de ses services</li> </ul> </section> <section class="space-y-4"> <h2 class="text-2xl font-semibold">5. Durée de conservation</h2> <div class="glass p-6 rounded-xl"> <ul class="space-y-3 text-text-secondary"> <li class="flex justify-between"> <span>Données de contact (prospects)</span> <span class="text-text-muted">3 ans après le dernier contact</span> </li> <li class="flex justify-between"> <span>Données clients</span> <span class="text-text-muted">5 ans après la fin de la relation</span> </li> <li class="flex justify-between"> <span>Cookies</span> <span class="text-text-muted">13 mois maximum</span> </li> </ul> </div> </section> <section class="space-y-4"> <h2 class="text-2xl font-semibold">6. Destinataires des données</h2> <p class="text-text-secondary">
+Vos données peuvent être transmises aux destinataires suivants :
+</p> <ul class="list-disc list-inside text-text-secondary space-y-2"> <li>Nos équipes internes (commercial, technique)</li> <li>Nos sous-traitants techniques (hébergement, emailing)</li> <li>Les autorités compétentes en cas d'obligation légale</li> </ul> <p class="text-text-secondary">
+Nous ne vendons jamais vos données à des tiers.
+</p> </section> <section class="space-y-4"> <h2 class="text-2xl font-semibold">7. Transferts hors UE</h2> <p class="text-text-secondary">
+Certaines de nos solutions techniques peuvent impliquer un transfert de données
+            hors de l'Union Européenne (notamment vers les États-Unis). Dans ce cas, nous
+            nous assurons que des garanties appropriées sont mises en place (clauses
+            contractuelles types, Privacy Shield, etc.).
+</p> </section> <section class="space-y-4"> <h2 class="text-2xl font-semibold">8. Vos droits</h2> <p class="text-text-secondary">
+Conformément au RGPD, vous disposez des droits suivants :
+</p> <div class="grid md:grid-cols-2 gap-4"> <div class="glass p-4 rounded-xl"> <h3 class="font-medium mb-2">Droit d'accès</h3> <p class="text-text-secondary text-sm">Obtenir une copie de vos données</p> </div> <div class="glass p-4 rounded-xl"> <h3 class="font-medium mb-2">Droit de rectification</h3> <p class="text-text-secondary text-sm">Corriger vos données inexactes</p> </div> <div class="glass p-4 rounded-xl"> <h3 class="font-medium mb-2">Droit à l'effacement</h3> <p class="text-text-secondary text-sm">Demander la suppression de vos données</p> </div> <div class="glass p-4 rounded-xl"> <h3 class="font-medium mb-2">Droit à la portabilité</h3> <p class="text-text-secondary text-sm">Récupérer vos données dans un format lisible</p> </div> <div class="glass p-4 rounded-xl"> <h3 class="font-medium mb-2">Droit d'opposition</h3> <p class="text-text-secondary text-sm">Vous opposer au traitement de vos données</p> </div> <div class="glass p-4 rounded-xl"> <h3 class="font-medium mb-2">Droit de limitation</h3> <p class="text-text-secondary text-sm">Limiter l'utilisation de vos données</p> </div> </div> <p class="text-text-secondary">
+Pour exercer ces droits, contactez-nous à : <a href="mailto:contact@rework-agency.com" class="text-accent-primary hover:underline">contact@rework-agency.com</a> </p> </section> <section class="space-y-4"> <h2 class="text-2xl font-semibold">9. Cookies</h2> <p class="text-text-secondary">
+Notre site utilise des cookies pour :
+</p> <ul class="list-disc list-inside text-text-secondary space-y-2"> <li><strong>Cookies essentiels :</strong> nécessaires au fonctionnement du site</li> <li><strong>Cookies analytiques :</strong> mesure d'audience (Google Analytics)</li> <li><strong>Cookies de performance :</strong> amélioration de l'expérience utilisateur</li> </ul> <p class="text-text-secondary">
+Vous pouvez gérer vos préférences de cookies à tout moment via les paramètres
+            de votre navigateur.
+</p> </section> <section class="space-y-4"> <h2 class="text-2xl font-semibold">10. Sécurité</h2> <p class="text-text-secondary">
+Nous mettons en œuvre des mesures techniques et organisationnelles appropriées
+            pour protéger vos données contre tout accès non autorisé, modification,
+            divulgation ou destruction.
+</p> </section> <section class="space-y-4"> <h2 class="text-2xl font-semibold">11. Réclamation</h2> <p class="text-text-secondary">
+Si vous estimez que le traitement de vos données ne respecte pas la réglementation,
+            vous pouvez introduire une réclamation auprès de la CNIL :
+</p> <div class="glass p-6 rounded-xl"> <p class="text-text-secondary"> <strong>CNIL</strong><br>
+3 Place de Fontenoy<br>
+TSA 80715<br>
+75334 Paris Cedex 07<br> <a href="https://www.cnil.fr" target="_blank" rel="noopener" class="text-accent-primary hover:underline">www.cnil.fr</a> </p> </div> </section> <section class="space-y-4"> <h2 class="text-2xl font-semibold">12. Modifications</h2> <p class="text-text-secondary">
+Nous nous réservons le droit de modifier cette politique de confidentialité à
+            tout moment. La date de dernière mise à jour sera indiquée en haut de cette page.
+</p> </section> </div> <div class="mt-12 pt-8 border-t border-white/10"> <a href="/" class="text-accent-primary hover:underline">&larr; Retour à l'accueil</a> </div> ` })} </section> ` })}`;
+}, "C:/MAMP/htdocs/rework/src/pages/politique-confidentialite.astro", void 0);
+
+const $$file = "C:/MAMP/htdocs/rework/src/pages/politique-confidentialite.astro";
+const $$url = "/politique-confidentialite";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$PolitiqueConfidentialite,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };

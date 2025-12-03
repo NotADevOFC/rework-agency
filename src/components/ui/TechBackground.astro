@@ -1,0 +1,355 @@
+---
+interface Props {
+  opacity?: number;
+}
+
+const { opacity = 0.5 } = Astro.props;
+---
+
+<div class="tech-background" style={`--bg-opacity: ${opacity}`}>
+  <!-- Canvas for particle network -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Floating particles (CSS) -->
+  <div class="particles">
+    {[...Array(30)].map((_, i) => (
+      <div
+        class="particle"
+        style={`
+          --x: ${Math.random() * 100}vw;
+          --y: ${Math.random() * 100}vh;
+          --duration: ${20 + Math.random() * 30}s;
+          --delay: ${-Math.random() * 20}s;
+          --size: ${2 + Math.random() * 3}px;
+        `}
+      />
+    ))}
+  </div>
+
+  <!-- Horizontal scan line -->
+  <div class="scan-line"></div>
+
+  <!-- Grid overlay -->
+  <div class="grid-overlay"></div>
+
+  <!-- Glow orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Data streams -->
+  <div class="streams">
+    {[...Array(4)].map((_, i) => (
+      <div
+        class="stream"
+        style={`
+          --y: ${20 + i * 20}%;
+          --duration: ${4 + Math.random() * 3}s;
+          --delay: ${i * 1.2}s;
+          --width: ${80 + Math.random() * 120}px;
+        `}
+      />
+    ))}
+  </div>
+</div>
+
+<style>
+  .tech-background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: var(--bg-opacity);
+    z-index: 0;
+  }
+
+  /* Canvas for particle network */
+  #particle-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* CSS Particles */
+  .particles {
+    position: absolute;
+    inset: 0;
+  }
+
+  .particle {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--size);
+    height: var(--size);
+    background: var(--color-accent-primary);
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: float var(--duration) ease-in-out infinite var(--delay);
+    box-shadow: 0 0 6px var(--color-accent-primary);
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translate(0, 0);
+      opacity: 0.6;
+    }
+    50% {
+      transform: translate(20px, -30px);
+      opacity: 0.3;
+    }
+  }
+
+  /* Scan line */
+  .scan-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--color-accent-primary) 20%,
+      var(--color-accent-secondary) 50%,
+      var(--color-accent-primary) 80%,
+      transparent 100%
+    );
+    opacity: 0.4;
+    animation: scan 8s linear infinite;
+  }
+
+  @keyframes scan {
+    0% { top: -1px; }
+    100% { top: 100%; }
+  }
+
+  /* Grid overlay */
+  .grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+  }
+
+  /* Orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.15;
+    animation: orb-move 25s ease-in-out infinite;
+  }
+
+  .orb-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--color-accent-primary);
+    top: 10%;
+    left: 10%;
+  }
+
+  .orb-2 {
+    width: 350px;
+    height: 350px;
+    background: var(--color-accent-secondary);
+    top: 50%;
+    right: 15%;
+    animation-delay: -8s;
+  }
+
+  .orb-3 {
+    width: 300px;
+    height: 300px;
+    background: var(--color-accent-tertiary);
+    bottom: 15%;
+    left: 25%;
+    animation-delay: -16s;
+  }
+
+  @keyframes orb-move {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(30px, -20px) scale(1.05);
+    }
+    66% {
+      transform: translate(-20px, 15px) scale(0.95);
+    }
+  }
+
+  /* Data streams */
+  .streams {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .stream {
+    position: absolute;
+    top: var(--y);
+    left: -150px;
+    width: var(--width);
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent,
+      var(--color-accent-primary),
+      var(--color-accent-secondary),
+      transparent
+    );
+    opacity: 0.5;
+    animation: stream-move var(--duration) linear infinite var(--delay);
+  }
+
+  @keyframes stream-move {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(100vw + 300px));
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .orb {
+      opacity: 0.1;
+    }
+
+    .orb-1 { width: 250px; height: 250px; }
+    .orb-2 { width: 200px; height: 200px; }
+    .orb-3 { width: 180px; height: 180px; }
+
+    .particle {
+      opacity: 0.4;
+    }
+  }
+</style>
+
+<script>
+  class ParticleNetwork {
+    private canvas: HTMLCanvasElement;
+    private ctx: CanvasRenderingContext2D;
+    private particles: Array<{x: number; y: number; vx: number; vy: number}> = [];
+    private width: number = 0;
+    private height: number = 0;
+    private animationId: number = 0;
+    private mouseX: number = -1000;
+    private mouseY: number = -1000;
+
+    constructor() {
+      const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement;
+      if (!canvas) return;
+
+      this.canvas = canvas;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      this.ctx = ctx;
+      this.resize();
+      this.createParticles();
+      this.animate();
+
+      window.addEventListener('resize', () => this.resize());
+      window.addEventListener('mousemove', (e) => {
+        this.mouseX = e.clientX;
+        this.mouseY = e.clientY;
+      });
+    }
+
+    private resize() {
+      this.width = window.innerWidth;
+      this.height = window.innerHeight;
+      this.canvas.width = this.width;
+      this.canvas.height = this.height;
+    }
+
+    private createParticles() {
+      const particleCount = Math.min(80, Math.floor((this.width * this.height) / 15000));
+      this.particles = [];
+
+      for (let i = 0; i < particleCount; i++) {
+        this.particles.push({
+          x: Math.random() * this.width,
+          y: Math.random() * this.height,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3
+        });
+      }
+    }
+
+    private animate() {
+      this.ctx.clearRect(0, 0, this.width, this.height);
+
+      // Update particles
+      this.particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Bounce off edges
+        if (p.x < 0 || p.x > this.width) p.vx *= -1;
+        if (p.y < 0 || p.y > this.height) p.vy *= -1;
+
+        // Keep in bounds
+        p.x = Math.max(0, Math.min(this.width, p.x));
+        p.y = Math.max(0, Math.min(this.height, p.y));
+      });
+
+      // Draw connections
+      const connectionDistance = 120;
+      const mouseDistance = 200;
+
+      for (let i = 0; i < this.particles.length; i++) {
+        const p1 = this.particles[i];
+
+        // Connect to mouse
+        const dxMouse = p1.x - this.mouseX;
+        const dyMouse = p1.y - this.mouseY;
+        const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+
+        if (distMouse < mouseDistance) {
+          const opacity = (1 - distMouse / mouseDistance) * 0.5;
+          this.ctx.strokeStyle = `rgba(6, 182, 212, ${opacity})`;
+          this.ctx.lineWidth = 1;
+          this.ctx.beginPath();
+          this.ctx.moveTo(p1.x, p1.y);
+          this.ctx.lineTo(this.mouseX, this.mouseY);
+          this.ctx.stroke();
+        }
+
+        // Connect to other particles
+        for (let j = i + 1; j < this.particles.length; j++) {
+          const p2 = this.particles[j];
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < connectionDistance) {
+            const opacity = (1 - dist / connectionDistance) * 0.15;
+            this.ctx.strokeStyle = `rgba(139, 92, 246, ${opacity})`;
+            this.ctx.lineWidth = 0.5;
+            this.ctx.beginPath();
+            this.ctx.moveTo(p1.x, p1.y);
+            this.ctx.lineTo(p2.x, p2.y);
+            this.ctx.stroke();
+          }
+        }
+
+        // Draw particle
+        this.ctx.fillStyle = 'rgba(139, 92, 246, 0.4)';
+        this.ctx.beginPath();
+        this.ctx.arc(p1.x, p1.y, 1.5, 0, Math.PI * 2);
+        this.ctx.fill();
+      }
+
+      this.animationId = requestAnimationFrame(() => this.animate());
+    }
+  }
+
+  // Initialize
+  new ParticleNetwork();
+</script>

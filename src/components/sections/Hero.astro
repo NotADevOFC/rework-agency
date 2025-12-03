@@ -1,0 +1,188 @@
+---
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+---
+
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Animated Background -->
+  <div class="absolute inset-0">
+    <!-- Grid Pattern -->
+    <div class="absolute inset-0 grid-bg opacity-30"></div>
+
+    <!-- Gradient Orbs -->
+    <div class="orb orb-primary w-[600px] h-[600px] -top-48 -right-48"></div>
+    <div class="orb orb-secondary w-[500px] h-[500px] -bottom-32 -left-32" style="animation-delay: -4s;"></div>
+    <div class="orb orb-tertiary w-[400px] h-[400px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-30" style="animation-delay: -2s;"></div>
+
+    <!-- Floating Particles -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="particle" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+      <div class="particle" style="top: 60%; left: 20%; animation-delay: 1s;"></div>
+      <div class="particle" style="top: 30%; left: 80%; animation-delay: 2s;"></div>
+      <div class="particle" style="top: 70%; left: 70%; animation-delay: 3s;"></div>
+      <div class="particle" style="top: 40%; left: 50%; animation-delay: 4s;"></div>
+      <div class="particle" style="top: 80%; left: 90%; animation-delay: 5s;"></div>
+    </div>
+
+    <!-- Radial gradient overlay -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--color-bg-primary)_70%)]"></div>
+  </div>
+
+  <Container class="relative z-10">
+    <div class="max-w-5xl mx-auto text-center">
+      <!-- Announcement Badge -->
+      <div class="hero-badge mb-8 opacity-0">
+        <a href="/projets" class="group inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass border border-white/10 hover:border-accent-primary/50 transition-all duration-300">
+          <span class="flex h-2 w-2 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-primary opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-primary"></span>
+          </span>
+          <span class="text-sm text-text-secondary group-hover:text-white transition-colors">
+            Découvrez nos dernières réalisations
+          </span>
+          <svg class="w-4 h-4 text-text-muted group-hover:text-accent-primary group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Main Title -->
+      <h1 class="hero-title opacity-0 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-[1.1]">
+        <span class="block">Créons ensemble</span>
+        <span class="block mt-2">
+          <span class="gradient-text text-glow">l'extraordinaire</span>
+        </span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="hero-subtitle opacity-0 text-lg md:text-xl lg:text-2xl text-text-secondary max-w-3xl mx-auto mb-12 leading-relaxed">
+        Nous concevons des expériences digitales uniques qui transforment
+        <span class="text-white font-medium">vos ambitions</span> en
+        <span class="text-white font-medium">réalité</span>.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="hero-cta opacity-0 flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        <a href="/contact" class="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-accent-primary to-accent-secondary text-white font-semibold overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(139,92,246,0.4)] hover:scale-105">
+          <span class="relative z-10">Démarrer un projet</span>
+          <svg class="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+          <div class="absolute inset-0 bg-gradient-to-r from-accent-secondary to-accent-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </a>
+
+        <a href="/projets" class="group inline-flex items-center gap-3 px-8 py-4 rounded-full border border-white/10 text-white font-semibold hover:border-white/30 hover:bg-white/5 transition-all duration-300">
+          <span>Voir nos projets</span>
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="hero-stats opacity-0 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+        <div class="stat-item group text-center p-6 rounded-2xl glass hover:bg-white/5 transition-all duration-300 cursor-default">
+          <div class="text-4xl md:text-5xl font-bold gradient-text-static mb-2 group-hover:scale-110 transition-transform">50+</div>
+          <div class="text-sm text-text-muted">Projets livrés</div>
+        </div>
+        <div class="stat-item group text-center p-6 rounded-2xl glass hover:bg-white/5 transition-all duration-300 cursor-default" style="animation-delay: 0.1s;">
+          <div class="text-4xl md:text-5xl font-bold gradient-text-static mb-2 group-hover:scale-110 transition-transform">98%</div>
+          <div class="text-sm text-text-muted">Clients satisfaits</div>
+        </div>
+        <div class="stat-item group text-center p-6 rounded-2xl glass hover:bg-white/5 transition-all duration-300 cursor-default" style="animation-delay: 0.2s;">
+          <div class="text-4xl md:text-5xl font-bold gradient-text-static mb-2 group-hover:scale-110 transition-transform">5+</div>
+          <div class="text-sm text-text-muted">Années d'expertise</div>
+        </div>
+        <div class="stat-item group text-center p-6 rounded-2xl glass hover:bg-white/5 transition-all duration-300 cursor-default" style="animation-delay: 0.3s;">
+          <div class="text-4xl md:text-5xl font-bold gradient-text-static mb-2 group-hover:scale-110 transition-transform">24h</div>
+          <div class="text-sm text-text-muted">Réponse rapide</div>
+        </div>
+      </div>
+    </div>
+  </Container>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 scroll-indicator">
+    <a href="#services" class="flex flex-col items-center gap-2 text-text-muted hover:text-white transition-colors">
+      <span class="text-xs uppercase tracking-widest">Découvrir</span>
+      <div class="w-6 h-10 rounded-full border-2 border-current flex justify-center pt-2">
+        <div class="w-1 h-2 bg-current rounded-full animate-bounce"></div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<script>
+  // GSAP-like animations using vanilla JS for initial load
+  document.addEventListener('DOMContentLoaded', () => {
+    const tl = [
+      { el: '.hero-badge', delay: 100 },
+      { el: '.hero-title', delay: 200 },
+      { el: '.hero-subtitle', delay: 400 },
+      { el: '.hero-cta', delay: 600 },
+      { el: '.hero-stats', delay: 800 },
+      { el: '.scroll-indicator', delay: 1200 },
+    ];
+
+    tl.forEach(({ el, delay }) => {
+      const element = document.querySelector(el);
+      if (element) {
+        setTimeout(() => {
+          element.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }, delay);
+      }
+    });
+
+    // Set initial state for animation
+    document.querySelectorAll('.hero-badge, .hero-title, .hero-subtitle, .hero-cta, .hero-stats, .scroll-indicator').forEach(el => {
+      if (el instanceof HTMLElement) {
+        el.style.transform = 'translateY(30px)';
+      }
+    });
+
+    // Stagger stat items
+    document.querySelectorAll('.stat-item').forEach((item, index) => {
+      if (item instanceof HTMLElement) {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          item.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+          item.style.opacity = '1';
+          item.style.transform = 'translateY(0)';
+        }, 900 + (index * 100));
+      }
+    });
+
+    // Mouse parallax effect for orbs
+    document.addEventListener('mousemove', (e) => {
+      const orbs = document.querySelectorAll('.orb');
+      const x = (e.clientX / window.innerWidth - 0.5) * 30;
+      const y = (e.clientY / window.innerHeight - 0.5) * 30;
+
+      orbs.forEach((orb, index) => {
+        if (orb instanceof HTMLElement) {
+          const factor = (index + 1) * 0.5;
+          orb.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  /* Particle floating animation variations */
+  .particle:nth-child(odd) {
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .particle:nth-child(even) {
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  /* Orb smooth transitions for parallax */
+  .orb {
+    transition: transform 0.3s ease-out;
+  }
+</style>

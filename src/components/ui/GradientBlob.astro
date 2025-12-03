@@ -1,0 +1,31 @@
+---
+interface Props {
+  class?: string;
+  size?: 'sm' | 'md' | 'lg';
+  color?: 'primary' | 'secondary' | 'mixed';
+}
+
+const { class: className, size = 'md', color = 'mixed' } = Astro.props;
+
+const sizes = {
+  sm: 'w-64 h-64',
+  md: 'w-96 h-96',
+  lg: 'w-[500px] h-[500px]',
+};
+
+const colors = {
+  primary: 'bg-accent-primary/30',
+  secondary: 'bg-accent-secondary/30',
+  mixed: 'bg-gradient-to-br from-accent-primary/30 to-accent-secondary/30',
+};
+---
+
+<div
+  class:list={[
+    'absolute rounded-full blur-3xl opacity-50 pointer-events-none blob-animate',
+    sizes[size],
+    colors[color],
+    className,
+  ]}
+  aria-hidden="true"
+/>

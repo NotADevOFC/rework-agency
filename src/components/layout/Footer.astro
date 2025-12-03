@@ -1,0 +1,251 @@
+---
+import Container from '../ui/Container.astro';
+
+const currentYear = new Date().getFullYear();
+
+const quickLinks = [
+  { name: 'Services', href: '/services' },
+  { name: 'Projets', href: '/projets' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'À propos', href: '/a-propos' },
+  { name: 'Contact', href: '/contact' },
+];
+
+const services = [
+  { name: 'Développement Web', href: '/services#web' },
+  { name: 'E-commerce', href: '/services#ecommerce' },
+  { name: 'Applications', href: '/services#apps' },
+  { name: 'UI/UX Design', href: '/services#design' },
+];
+
+const legalLinks = [
+  { name: 'Mentions légales', href: '/mentions-legales' },
+  { name: 'Politique de confidentialité', href: '/politique-confidentialite' },
+];
+
+const socialLinks = [
+  {
+    name: 'LinkedIn',
+    href: 'https://linkedin.com/company/rework-agency',
+    icon: 'M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z',
+  },
+  {
+    name: 'Twitter',
+    href: 'https://twitter.com/rework_agency',
+    icon: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z',
+  },
+  {
+    name: 'GitHub',
+    href: 'https://github.com/rework-agency',
+    icon: 'M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z',
+  },
+  {
+    name: 'Dribbble',
+    href: 'https://dribbble.com/rework-agency',
+    icon: 'M12 0C5.374 0 0 5.373 0 12s5.374 12 12 12c6.627 0 12-5.373 12-12S18.627 0 12 0zm7.885 5.505a10.188 10.188 0 012.091 5.97c-.31-.056-3.388-.687-6.494-.298-.072-.152-.142-.307-.216-.464-.204-.463-.423-.93-.65-1.39 3.45-1.407 5.015-3.42 5.269-3.818zM12 1.837c2.491 0 4.77.894 6.54 2.376-.21.356-1.632 2.238-4.928 3.466a52.546 52.546 0 00-3.72-5.822A10.177 10.177 0 0112 1.837zM7.604 2.62c.68.894 2.085 2.828 3.756 5.727-4.737 1.26-8.917 1.239-9.37 1.235a10.21 10.21 0 015.614-6.962zM1.835 12.008v-.308c.444.008 5.348.069 10.404-1.448.29.567.568 1.142.826 1.716l-.372.106c-5.281 1.702-8.087 6.349-8.351 6.79a10.18 10.18 0 01-2.507-6.856zm3.996 7.886c.166-.319 2.278-4.386 7.96-6.384.018-.006.035-.01.052-.016a51.57 51.57 0 012.195 7.79 10.183 10.183 0 01-10.207-1.39zm12.13.318a48.157 48.157 0 00-2.02-7.334c2.874-.458 5.392.283 5.712.39a10.199 10.199 0 01-3.692 6.944z',
+  },
+];
+---
+
+<footer class="relative overflow-hidden">
+  <!-- Background Effects -->
+  <div class="absolute inset-0">
+    <div class="absolute inset-0 grid-bg opacity-10"></div>
+    <div class="absolute bottom-0 left-1/4 w-[600px] h-[400px] bg-accent-primary/10 rounded-full blur-[150px]"></div>
+    <div class="absolute bottom-0 right-1/4 w-[600px] h-[400px] bg-accent-secondary/10 rounded-full blur-[150px]"></div>
+  </div>
+
+  <!-- Top CTA Banner -->
+  <div class="relative border-y border-white/5 bg-gradient-to-r from-bg-primary via-bg-secondary/50 to-bg-primary">
+    <Container>
+      <div class="py-16 flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div class="text-center lg:text-left">
+          <h3 class="text-2xl md:text-3xl font-bold mb-2">
+            Prêt à <span class="gradient-text">transformer</span> votre vision ?
+          </h3>
+          <p class="text-text-secondary">
+            Discutons de votre projet et créons quelque chose d'extraordinaire ensemble.
+          </p>
+        </div>
+        <a
+          href="/contact"
+          class="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white text-bg-primary font-semibold hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] transition-all duration-300"
+        >
+          <span>Démarrer un projet</span>
+          <div class="w-8 h-8 rounded-full bg-bg-primary/10 flex items-center justify-center group-hover:bg-bg-primary/20 transition-colors">
+            <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </div>
+        </a>
+      </div>
+    </Container>
+  </div>
+
+  <!-- Main Footer Content -->
+  <Container class="relative z-10">
+    <div class="py-20">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
+        <!-- Brand Column -->
+        <div class="lg:col-span-5">
+          <a href="/" class="inline-flex items-center gap-3 group mb-6">
+            <div class="relative w-12 h-12 rounded-xl bg-gradient-to-br from-accent-primary to-accent-secondary p-0.5 group-hover:scale-105 transition-transform duration-300">
+              <div class="w-full h-full rounded-[10px] bg-bg-primary flex items-center justify-center">
+                <span class="text-xl font-bold gradient-text-static">R</span>
+              </div>
+              <!-- Glow effect -->
+              <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-accent-primary to-accent-secondary opacity-0 group-hover:opacity-50 blur-xl transition-opacity duration-300"></div>
+            </div>
+            <div>
+              <span class="text-xl font-bold text-white tracking-tight block">Rework</span>
+              <span class="text-xs text-text-muted uppercase tracking-widest">Digital Agency</span>
+            </div>
+          </a>
+          <p class="text-text-secondary max-w-sm mb-8 leading-relaxed">
+            Nous transformons vos idées en expériences digitales exceptionnelles.
+            Design moderne, code performant, résultats mesurables.
+          </p>
+
+          <!-- Social Links -->
+          <div class="flex items-center gap-3">
+            {socialLinks.map((social) => (
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group/social relative w-11 h-11 flex items-center justify-center rounded-xl glass text-text-muted hover:text-white transition-all duration-300"
+                aria-label={social.name}
+              >
+                <svg class="w-5 h-5 relative z-10" fill="currentColor" viewBox="0 0 24 24">
+                  <path d={social.icon} />
+                </svg>
+                <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-accent-primary/20 to-accent-secondary/20 opacity-0 group-hover/social:opacity-100 transition-opacity duration-300"></div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Navigation Column -->
+        <div class="lg:col-span-2">
+          <h4 class="text-sm font-semibold text-white uppercase tracking-wider mb-6 flex items-center gap-2">
+            <span class="w-8 h-px bg-gradient-to-r from-accent-primary to-transparent"></span>
+            Navigation
+          </h4>
+          <ul class="space-y-4">
+            {quickLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="group/link inline-flex items-center gap-2 text-text-secondary hover:text-white transition-colors"
+                >
+                  <span class="w-0 h-px bg-accent-primary group-hover/link:w-3 transition-all duration-300"></span>
+                  {link.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Services Column -->
+        <div class="lg:col-span-2">
+          <h4 class="text-sm font-semibold text-white uppercase tracking-wider mb-6 flex items-center gap-2">
+            <span class="w-8 h-px bg-gradient-to-r from-accent-secondary to-transparent"></span>
+            Services
+          </h4>
+          <ul class="space-y-4">
+            {services.map((service) => (
+              <li>
+                <a
+                  href={service.href}
+                  class="group/link inline-flex items-center gap-2 text-text-secondary hover:text-white transition-colors"
+                >
+                  <span class="w-0 h-px bg-accent-secondary group-hover/link:w-3 transition-all duration-300"></span>
+                  {service.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Contact Column -->
+        <div class="lg:col-span-3">
+          <h4 class="text-sm font-semibold text-white uppercase tracking-wider mb-6 flex items-center gap-2">
+            <span class="w-8 h-px bg-gradient-to-r from-accent-tertiary to-transparent"></span>
+            Contact
+          </h4>
+          <ul class="space-y-4">
+            <li>
+              <a
+                href="mailto:hello@rework.agency"
+                class="group/contact flex items-center gap-3 text-text-secondary hover:text-white transition-colors"
+              >
+                <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center group-hover/contact:bg-white/10 transition-colors">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <span>hello@rework.agency</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="tel:+33123456789"
+                class="group/contact flex items-center gap-3 text-text-secondary hover:text-white transition-colors"
+              >
+                <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center group-hover/contact:bg-white/10 transition-colors">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <span>+33 1 23 45 67 89</span>
+              </a>
+            </li>
+            <li class="flex items-start gap-3 text-text-secondary">
+              <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <span>Paris, France<br /><span class="text-text-muted text-sm">Remote Friendly</span></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </Container>
+
+  <!-- Bottom Bar -->
+  <div class="relative border-t border-white/5">
+    <Container>
+      <div class="py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-sm text-text-muted text-center md:text-left">
+          &copy; {currentYear} Rework Agency. Tous droits réservés.
+        </p>
+
+        <div class="flex items-center gap-6">
+          {legalLinks.map((link, index) => (
+            <>
+              <a
+                href={link.href}
+                class="text-sm text-text-muted hover:text-white transition-colors"
+              >
+                {link.name}
+              </a>
+              {index < legalLinks.length - 1 && (
+                <span class="w-1 h-1 rounded-full bg-white/20"></span>
+              )}
+            </>
+          ))}
+        </div>
+
+        <div class="flex items-center gap-2 text-sm text-text-muted">
+          <span>Fait avec</span>
+          <span class="text-red-500 animate-pulse">♥</span>
+          <span>et beaucoup de</span>
+          <span class="text-amber-500">☕</span>
+        </div>
+      </div>
+    </Container>
+  </div>
+</footer>

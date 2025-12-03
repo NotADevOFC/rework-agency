@@ -1,0 +1,218 @@
+---
+import Container from '../ui/Container.astro';
+import { fetchGraphQL, isWordPressAvailable } from '../../lib/wordpress';
+import { GET_PROJECTS } from '../../lib/queries/projects';
+import type { ProjectsResponse, Project } from '../../types';
+
+function getTechnologies(project: Project): string[] {
+  if (project.technologies?.nodes) {
+    return project.technologies.nodes.map(t => t.name);
+  }
+  return [];
+}
+
+const mockProjects: Project[] = [
+  {
+    id: '1',
+    slug: 'ecommerce-mode',
+    title: 'E-commerce Mode Premium',
+    excerpt: 'Boutique en ligne haut de gamme pour une marque de mode parisienne.',
+    featuredImage: undefined,
+    technologies: { nodes: [{ name: 'Shopify', slug: 'shopify' }, { name: 'Liquid', slug: 'liquid' }, { name: 'JavaScript', slug: 'javascript' }] },
+    projectFields: { client: 'Maison Élégance', year: '2024', liveUrl: 'https://exemple.com' },
+  },
+  {
+    id: '2',
+    slug: 'saas-dashboard',
+    title: 'Dashboard SaaS Analytics',
+    excerpt: 'Plateforme d\'analyse de données en temps réel pour une startup tech.',
+    featuredImage: undefined,
+    technologies: { nodes: [{ name: 'React', slug: 'react' }, { name: 'TypeScript', slug: 'typescript' }, { name: 'D3.js', slug: 'd3js' }] },
+    projectFields: { client: 'DataFlow', year: '2024', liveUrl: 'https://exemple.com' },
+  },
+  {
+    id: '3',
+    slug: 'site-vitrine-architecte',
+    title: 'Portfolio Architecte',
+    excerpt: 'Site vitrine minimaliste pour un cabinet d\'architecture.',
+    featuredImage: undefined,
+    technologies: { nodes: [{ name: 'Astro', slug: 'astro' }, { name: 'Tailwind CSS', slug: 'tailwind-css' }, { name: 'GSAP', slug: 'gsap' }] },
+    projectFields: { client: 'Studio Archi', year: '2023', liveUrl: 'https://exemple.com' },
+  },
+];
+
+let projects: Project[] = [];
+
+try {
+  const wpAvailable = await isWordPressAvailable();
+  if (wpAvailable) {
+    const data = await fetchGraphQL<ProjectsResponse>(GET_PROJECTS, { first: 3 });
+    if (data.projects.nodes.length > 0) {
+      projects = data.projects.nodes;
+    }
+  }
+} catch (error) {
+  console.error('Error fetching projects:', error);
+}
+
+if (projects.length === 0) {
+  projects = mockProjects;
+}
+---
+
+<section class="py-32 relative overflow-hidden">
+  <!-- Background -->
+  <div class="absolute inset-0">
+    <div class="absolute inset-0 grid-bg opacity-20"></div>
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-accent-secondary/10 rounded-full blur-[150px]"></div>
+  </div>
+
+  <Container class="relative z-10">
+    <!-- Section Header -->
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16 reveal">
+      <div class="max-w-2xl">
+        <span class="inline-block px-4 py-2 rounded-full glass text-sm text-accent-secondary mb-6">
+          Portfolio
+        </span>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+          Nos dernières
+          <span class="gradient-text">réalisations</span>
+        </h2>
+        <p class="text-lg text-text-secondary">
+          Chaque projet est une nouvelle histoire. Découvrez comment nous transformons les visions de nos clients en expériences digitales exceptionnelles.
+        </p>
+      </div>
+      <a
+        href="/projets"
+        class="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/10 text-white font-medium hover:bg-white/5 hover:border-white/20 transition-all shrink-0"
+      >
+        Voir tous les projets
+        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid lg:grid-cols-3 gap-6 lg:gap-8">
+      {projects.map((project, index) => (
+        <a
+          href={`/projets/${project.slug}`}
+          class="project-card group reveal"
+          data-delay={index + 1}
+        >
+          <div class="relative h-full rounded-2xl bg-bg-secondary/50 border border-white/5 overflow-hidden transition-all duration-500 hover:border-white/10 hover:bg-bg-secondary/80 hover:shadow-2xl hover:shadow-accent-primary/5">
+            <!-- Image Container -->
+            <div class="relative aspect-[4/3] overflow-hidden">
+              {project.featuredImage?.node ? (
+                <img
+                  src={project.featuredImage.node.sourceUrl}
+                  alt={project.featuredImage.node.altText || project.title}
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              ) : (
+                <div class="w-full h-full bg-gradient-to-br from-bg-tertiary to-bg-secondary flex items-center justify-center">
+                  <div class="w-20 h-20 rounded-2xl bg-white/5 flex items-center justify-center">
+                    <svg class="w-10 h-10 text-text-muted/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                </div>
+              )}
+
+              <!-- Overlay gradient -->
+              <div class="absolute inset-0 bg-gradient-to-t from-bg-primary via-transparent to-transparent opacity-60"></div>
+
+              <!-- Year Badge -->
+              <div class="absolute top-4 left-4">
+                <span class="px-3 py-1.5 rounded-full glass text-xs font-medium text-white">
+                  {project.projectFields.year}
+                </span>
+              </div>
+
+              <!-- View Project Indicator -->
+              <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="p-6">
+              <!-- Client -->
+              <p class="text-sm text-accent-primary font-medium mb-2">
+                {project.projectFields.client}
+              </p>
+
+              <!-- Title -->
+              <h3 class="text-xl font-bold mb-3 group-hover:text-white transition-colors">
+                {project.title}
+              </h3>
+
+              <!-- Excerpt -->
+              <div class="text-text-secondary text-sm leading-relaxed mb-4 line-clamp-3" set:html={project.excerpt} />
+
+              <!-- Technologies -->
+              <div class="flex flex-wrap gap-2">
+                {getTechnologies(project).slice(0, 3).map((tech) => (
+                  <span class="text-xs px-2.5 py-1 rounded-full bg-white/5 text-text-muted border border-white/5">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </Container>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Card parallax effect on hover
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+      const inner = card.querySelector('div');
+      if (inner) {
+        inner.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg)`;
+      }
+    });
+
+    card.addEventListener('mouseleave', () => {
+      const inner = card.querySelector('div');
+      if (inner) {
+        inner.style.transform = '';
+      }
+    });
+  });
+</script>
+
+<style>
+  .project-card > div {
+    transition: transform 0.3s ease, box-shadow 0.5s ease, border-color 0.3s ease, background-color 0.3s ease;
+  }
+
+  .line-clamp-3,
+  .line-clamp-3 p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+  }
+</style>

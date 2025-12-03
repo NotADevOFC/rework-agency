@@ -1,0 +1,124 @@
+---
+interface Props {
+  type: 'Organization' | 'WebSite' | 'Article' | 'Service' | 'LocalBusiness';
+  data?: Record<string, unknown>;
+}
+
+const { type, data = {} } = Astro.props;
+
+const baseUrl = 'https://rework.agency';
+
+const schemas: Record<string, object> = {
+  Organization: {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Rework Agency',
+    url: baseUrl,
+    logo: `${baseUrl}/logo.png`,
+    description: 'Agence de développement web et e-commerce. Sites modernes, performants et sur mesure.',
+    foundingDate: '2023',
+    founders: [
+      {
+        '@type': 'Person',
+        name: 'Rework Team',
+      },
+    ],
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Paris',
+      addressCountry: 'FR',
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+33-1-23-45-67-89',
+      contactType: 'customer service',
+      availableLanguage: ['French', 'English'],
+    },
+    sameAs: [
+      'https://linkedin.com/company/rework-agency',
+      'https://twitter.com/rework_agency',
+      'https://github.com/rework-agency',
+    ],
+    ...data,
+  },
+  WebSite: {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Rework Agency',
+    url: baseUrl,
+    description: 'Agence de développement web et e-commerce. Sites modernes, performants et sur mesure.',
+    publisher: {
+      '@type': 'Organization',
+      name: 'Rework Agency',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${baseUrl}/logo.png`,
+      },
+    },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${baseUrl}/recherche?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+    ...data,
+  },
+  Article: {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    publisher: {
+      '@type': 'Organization',
+      name: 'Rework Agency',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${baseUrl}/logo.png`,
+      },
+    },
+    ...data,
+  },
+  Service: {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    provider: {
+      '@type': 'Organization',
+      name: 'Rework Agency',
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'France',
+    },
+    ...data,
+  },
+  LocalBusiness: {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': baseUrl,
+    name: 'Rework Agency',
+    image: `${baseUrl}/logo.png`,
+    url: baseUrl,
+    telephone: '+33-1-23-45-67-89',
+    email: 'hello@rework.agency',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Paris',
+      addressCountry: 'FR',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 48.8566,
+      longitude: 2.3522,
+    },
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '09:00',
+      closes: '18:00',
+    },
+    priceRange: '€€€',
+    ...data,
+  },
+};
+
+const schema = schemas[type];
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

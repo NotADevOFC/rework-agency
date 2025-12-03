@@ -1,0 +1,242 @@
+---
+import Container from '../ui/Container.astro';
+import ThemeToggle from '../ui/ThemeToggle.astro';
+
+const navigation = [
+  { name: 'Accueil', href: '/' },
+  { name: 'Services', href: '/services' },
+  { name: 'Projets', href: '/projets' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'À propos', href: '/a-propos' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <!-- Background with blur - initially transparent -->
+  <div class="header-bg absolute inset-0 bg-bg-primary/0 backdrop-blur-0 border-b border-transparent transition-all duration-300"></div>
+
+  <Container class="relative">
+    <nav class="flex items-center justify-between h-20">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="relative w-10 h-10 rounded-xl bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-300">
+          <span class="text-white font-bold text-lg">R</span>
+          <!-- Shine effect -->
+          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-lg font-bold text-white tracking-tight">
+            Rework
+          </span>
+          <span class="text-[10px] text-text-muted uppercase tracking-widest hidden sm:block">
+            Digital Agency
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center">
+        <div class="flex items-center gap-1 p-1.5 rounded-full glass">
+          {navigation.map((item) => (
+            <a
+              href={item.href}
+              class:list={[
+                'relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-300',
+                currentPath === item.href
+                  ? 'text-white'
+                  : 'text-text-secondary hover:text-white',
+              ]}
+            >
+              {currentPath === item.href && (
+                <span class="absolute inset-0 rounded-full bg-white/10 border border-white/10"></span>
+              )}
+              <span class="relative z-10">{item.name}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA + Theme Toggle + Mobile Menu -->
+      <div class="flex items-center gap-3">
+        <!-- Theme Toggle -->
+        <ThemeToggle />
+
+        <a
+          href="/contact"
+          class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent-primary text-white font-semibold text-sm hover:bg-accent-primary/90 hover:shadow-[0_0_30px_rgba(139,92,246,0.4)] transition-all duration-300"
+        >
+          Nous contacter
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button
+          type="button"
+          class="md:hidden relative w-10 h-10 flex items-center justify-center rounded-full glass text-text-secondary hover:text-white transition-colors"
+          aria-label="Menu"
+          id="mobile-menu-button"
+        >
+          <div class="menu-icon w-5 h-4 relative flex flex-col justify-between">
+            <span class="menu-line w-full h-0.5 bg-current rounded-full transition-all duration-300 origin-center"></span>
+            <span class="menu-line w-full h-0.5 bg-current rounded-full transition-all duration-300"></span>
+            <span class="menu-line w-3/4 h-0.5 bg-current rounded-full transition-all duration-300 origin-center ml-auto"></span>
+          </div>
+        </button>
+      </div>
+    </nav>
+  </Container>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="mobile-menu md:hidden fixed inset-0 top-20 bg-bg-primary/98 backdrop-blur-xl opacity-0 invisible transition-all duration-300"
+  >
+    <Container class="h-full">
+      <div class="flex flex-col h-full py-8">
+        <!-- Navigation Links -->
+        <nav class="flex-1 space-y-2">
+          {navigation.map((item, index) => (
+            <a
+              href={item.href}
+              class:list={[
+                'mobile-nav-item block px-6 py-4 text-2xl font-semibold rounded-2xl transition-all duration-300 opacity-0 translate-y-4',
+                currentPath === item.href
+                  ? 'text-white bg-white/5'
+                  : 'text-text-secondary hover:text-white hover:bg-white/5',
+              ]}
+              style={`transition-delay: ${index * 50}ms`}
+            >
+              <span class="flex items-center justify-between">
+                {item.name}
+                <svg class="w-5 h-5 opacity-0 -translate-x-2 transition-all group-hover:opacity-100 group-hover:translate-x-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </span>
+            </a>
+          ))}
+        </nav>
+
+        <!-- CTA Button -->
+        <div class="mobile-nav-item pt-8 border-t border-white/5 opacity-0 translate-y-4" style="transition-delay: 250ms">
+          <a
+            href="/contact"
+            class="flex items-center justify-center gap-3 w-full px-8 py-4 rounded-full bg-gradient-to-r from-accent-primary to-accent-secondary text-white font-semibold text-lg"
+          >
+            Démarrer un projet
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </Container>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('header');
+  const headerBg = header?.querySelector('.header-bg');
+  const menuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuLines = menuButton?.querySelectorAll('.menu-line');
+  const mobileNavItems = mobileMenu?.querySelectorAll('.mobile-nav-item');
+
+  let isMenuOpen = false;
+
+  // Header scroll effect
+  const handleScroll = () => {
+    if (window.scrollY > 50) {
+      headerBg?.classList.add('bg-bg-primary/80', 'backdrop-blur-xl', 'border-white/5');
+      headerBg?.classList.remove('bg-bg-primary/0', 'backdrop-blur-0', 'border-transparent');
+    } else if (!isMenuOpen) {
+      headerBg?.classList.remove('bg-bg-primary/80', 'backdrop-blur-xl', 'border-white/5');
+      headerBg?.classList.add('bg-bg-primary/0', 'backdrop-blur-0', 'border-transparent');
+    }
+  };
+
+  window.addEventListener('scroll', handleScroll);
+  handleScroll();
+
+  // Mobile menu toggle
+  const toggleMenu = () => {
+    isMenuOpen = !isMenuOpen;
+
+    if (isMenuOpen) {
+      mobileMenu?.classList.remove('opacity-0', 'invisible');
+      mobileMenu?.classList.add('opacity-100', 'visible');
+      document.body.style.overflow = 'hidden';
+
+      // Animate menu icon to X
+      if (menuLines) {
+        menuLines[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        menuLines[1].style.opacity = '0';
+        menuLines[2].style.transform = 'rotate(-45deg) translate(4px, -4px)';
+        menuLines[2].style.width = '100%';
+      }
+
+      // Animate nav items
+      mobileNavItems?.forEach((item, index) => {
+        setTimeout(() => {
+          item.classList.remove('opacity-0', 'translate-y-4');
+          item.classList.add('opacity-100', 'translate-y-0');
+        }, index * 50);
+      });
+
+      // Keep header bg solid
+      headerBg?.classList.add('bg-bg-primary/80', 'backdrop-blur-xl', 'border-white/5');
+    } else {
+      mobileMenu?.classList.add('opacity-0', 'invisible');
+      mobileMenu?.classList.remove('opacity-100', 'visible');
+      document.body.style.overflow = '';
+
+      // Reset menu icon
+      if (menuLines) {
+        menuLines[0].style.transform = '';
+        menuLines[1].style.opacity = '';
+        menuLines[2].style.transform = '';
+        menuLines[2].style.width = '';
+      }
+
+      // Reset nav items
+      mobileNavItems?.forEach(item => {
+        item.classList.add('opacity-0', 'translate-y-4');
+        item.classList.remove('opacity-100', 'translate-y-0');
+      });
+
+      // Check scroll position for header bg
+      handleScroll();
+    }
+  };
+
+  menuButton?.addEventListener('click', toggleMenu);
+
+  // Close menu on link click
+  mobileMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (isMenuOpen) toggleMenu();
+    });
+  });
+
+  // Close menu on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isMenuOpen) toggleMenu();
+  });
+</script>
+
+<style>
+  .mobile-menu {
+    pointer-events: none;
+  }
+
+  .mobile-menu.visible {
+    pointer-events: auto;
+  }
+
+  .mobile-nav-item {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+</style>

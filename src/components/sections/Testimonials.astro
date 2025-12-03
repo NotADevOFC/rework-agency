@@ -1,0 +1,190 @@
+---
+import Container from '../ui/Container.astro';
+import { fetchGraphQL, isWordPressAvailable } from '../../lib/wordpress';
+import { GET_TESTIMONIALS } from '../../lib/queries/testimonials';
+import type { TestimonialsResponse, Testimonial } from '../../types';
+
+const mockTestimonials: Testimonial[] = [
+  {
+    id: '1',
+    title: 'Témoignage Sophie Bernard',
+    content: 'Une équipe professionnelle et réactive. Notre e-commerce a vu ses ventes augmenter de 150% depuis la refonte. Je recommande vivement !',
+    testimonialFields: {
+      authorName: 'Sophie Bernard',
+      authorRole: 'Directrice Marketing',
+      company: 'Maison Élégance',
+      rating: 5,
+    },
+  },
+  {
+    id: '2',
+    title: 'Témoignage Thomas Dubois',
+    content: 'Le dashboard qu\'ils ont développé est exactement ce dont nous avions besoin. Interface intuitive, performances au rendez-vous. Un vrai plaisir de travailler avec eux.',
+    testimonialFields: {
+      authorName: 'Thomas Dubois',
+      authorRole: 'CEO',
+      company: 'DataFlow',
+      rating: 5,
+    },
+  },
+  {
+    id: '3',
+    title: 'Témoignage Marie Laurent',
+    content: 'Notre site portfolio est magnifique et ultra-rapide. L\'équipe a parfaitement compris notre vision minimaliste. Score Lighthouse parfait !',
+    testimonialFields: {
+      authorName: 'Marie Laurent',
+      authorRole: 'Architecte',
+      company: 'Studio Archi',
+      rating: 5,
+    },
+  },
+];
+
+let testimonials: Testimonial[] = [];
+
+try {
+  const wpAvailable = await isWordPressAvailable();
+  if (wpAvailable) {
+    const data = await fetchGraphQL<TestimonialsResponse>(GET_TESTIMONIALS, { first: 6 });
+    if (data.testimonials.nodes.length > 0) {
+      testimonials = data.testimonials.nodes;
+    }
+  }
+} catch (error) {
+  console.error('Error fetching testimonials:', error);
+}
+
+if (testimonials.length === 0) {
+  testimonials = mockTestimonials;
+}
+---
+
+<section class="py-32 relative overflow-hidden bg-bg-secondary/30">
+  <!-- Background -->
+  <div class="absolute inset-0">
+    <div class="absolute inset-0 grid-bg opacity-10"></div>
+    <div class="absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] bg-accent-tertiary/10 rounded-full blur-[150px]"></div>
+    <div class="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] bg-accent-primary/10 rounded-full blur-[150px]"></div>
+  </div>
+
+  <Container class="relative z-10">
+    <!-- Section Header -->
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block px-4 py-2 rounded-full glass text-sm text-accent-tertiary mb-6">
+        Témoignages
+      </span>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+        Ils nous font
+        <span class="gradient-text">confiance</span>
+      </h2>
+      <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+        Découvrez les retours de nos clients sur leur collaboration avec notre équipe.
+      </p>
+    </div>
+
+    <!-- Testimonials Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      {testimonials.map((testimonial, index) => (
+        <div
+          class="testimonial-card group reveal"
+          data-delay={index + 1}
+        >
+          <div class="relative h-full p-8 rounded-2xl bg-bg-primary/50 border border-white/5 backdrop-blur-sm transition-all duration-500 hover:border-white/10 hover:bg-bg-primary/80">
+            <!-- Quote Icon -->
+            <div class="absolute -top-4 -left-2 text-6xl text-accent-primary/20 font-serif select-none">
+              "
+            </div>
+
+            <!-- Stars -->
+            <div class="flex gap-1 mb-6">
+              {[...Array(5)].map((_, i) => (
+                <svg
+                  class={`w-5 h-5 ${i < (testimonial.testimonialFields.rating || 5) ? 'text-amber-400' : 'text-white/10'}`}
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+              ))}
+            </div>
+
+            <!-- Quote Content -->
+            <blockquote class="mb-8">
+              <p class="text-text-secondary leading-relaxed text-lg" set:html={testimonial.content} />
+            </blockquote>
+
+            <!-- Author -->
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary p-0.5">
+                <div class="w-full h-full rounded-full bg-bg-primary flex items-center justify-center">
+                  <span class="text-sm font-bold gradient-text-static">
+                    {testimonial.testimonialFields.authorName.split(' ').map(n => n[0]).join('')}
+                  </span>
+                </div>
+              </div>
+              <div>
+                <p class="font-semibold text-white">{testimonial.testimonialFields.authorName}</p>
+                <p class="text-text-muted text-sm">
+                  {testimonial.testimonialFields.authorRole}
+                  {testimonial.testimonialFields.company && (
+                    <span class="text-accent-primary"> · {testimonial.testimonialFields.company}</span>
+                  )}
+                </p>
+              </div>
+            </div>
+
+            <!-- Decorative gradient line -->
+            <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Trust Badges -->
+    <div class="mt-16 pt-16 border-t border-white/5 reveal">
+      <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16">
+        <div class="text-center">
+          <div class="text-4xl font-bold gradient-text-static mb-1">50+</div>
+          <div class="text-sm text-text-muted">Projets réalisés</div>
+        </div>
+        <div class="w-px h-12 bg-white/10 hidden md:block"></div>
+        <div class="text-center">
+          <div class="text-4xl font-bold gradient-text-static mb-1">98%</div>
+          <div class="text-sm text-text-muted">Satisfaction client</div>
+        </div>
+        <div class="w-px h-12 bg-white/10 hidden md:block"></div>
+        <div class="text-center">
+          <div class="text-4xl font-bold gradient-text-static mb-1">5.0</div>
+          <div class="text-sm text-text-muted">Note moyenne</div>
+        </div>
+        <div class="w-px h-12 bg-white/10 hidden md:block"></div>
+        <div class="text-center">
+          <div class="text-4xl font-bold gradient-text-static mb-1">100%</div>
+          <div class="text-sm text-text-muted">Recommandation</div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+<style>
+  .testimonial-card > div {
+    transition: transform 0.3s ease, box-shadow 0.5s ease, border-color 0.3s ease, background-color 0.3s ease;
+  }
+
+  .testimonial-card:hover > div {
+    transform: translateY(-4px);
+  }
+</style>

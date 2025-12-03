@@ -1,0 +1,93 @@
+---
+/**
+ * Analytics Component
+ * Supports both Plausible and Google Analytics
+ * Only loads after cookie consent is given
+ * Configure via environment variables:
+ * - PUBLIC_PLAUSIBLE_DOMAIN: Your domain for Plausible (e.g., "rework.agency")
+ * - PUBLIC_GA_ID: Google Analytics 4 ID (e.g., "G-XXXXXXXXXX")
+ */
+
+const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
+const gaId = import.meta.env.PUBLIC_GA_ID;
+const isProd = import.meta.env.PROD;
+---
+
+{/* Analytics scripts - loaded conditionally based on cookie consent */}
+<script define:vars={{ plausibleDomain, gaId, isProd }}>
+  const COOKIE_CONSENT_KEY = 'cookie-consent';
+
+  function getConsent() {
+    try {
+      const stored = localStorage.getItem(COOKIE_CONSENT_KEY);
+      if (stored) {
+        return JSON.parse(stored);
+      }
+    } catch {
+      // Ignore parsing errors
+    }
+    return null;
+  }
+
+  function loadPlausible() {
+    if (!plausibleDomain || !isProd) return;
+
+    // Check if already loaded
+    if (document.querySelector('script[data-domain="' + plausibleDomain + '"]')) return;
+
+    const script = document.createElement('script');
+    script.defer = true;
+    script.dataset.domain = plausibleDomain;
+    script.src = 'https://plausible.io/js/script.js';
+    document.head.appendChild(script);
+  }
+
+  function loadGoogleAnalytics() {
+    if (!gaId || !isProd) return;
+
+    // Check if already loaded
+    if (document.querySelector('script[src*="googletagmanager.com/gtag"]')) return;
+
+    // Load gtag.js
+    const gtagScript = document.createElement('script');
+    gtagScript.async = true;
+    gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+    document.head.appendChild(gtagScript);
+
+    // Initialize gtag
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', gaId, {
+      anonymize_ip: true,
+      cookie_flags: 'SameSite=None;Secure'
+    });
+  }
+
+  function loadAnalytics() {
+    const consent = getConsent();
+
+    // Only load if user has accepted and analytics is enabled
+    if (consent && consent.accepted && consent.analytics) {
+      loadPlausible();
+      loadGoogleAnalytics();
+    }
+  }
+
+  // Load on page load if consent exists
+  loadAnalytics();
+
+  // Listen for consent changes
+  window.addEventListener('cookie-consent-changed', (e) => {
+    const consent = e.detail;
+    if (consent.accepted && consent.analytics) {
+      loadAnalytics();
+    }
+  });
+
+  // Re-check after Astro page transitions
+  document.addEventListener('astro:page-load', loadAnalytics);
+</script>
